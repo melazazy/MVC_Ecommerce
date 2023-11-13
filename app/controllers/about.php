@@ -1,10 +1,11 @@
 <?php
 class About extends Controller
 {
-    function index(){
+    function index()
+    {
 
         $data['title'] = "About";
 
-        $this->view("zay_shop/about",$data);
+        $this->view("zay_shop/about", $data);
     }
 }

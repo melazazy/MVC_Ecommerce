@@ -1,10 +1,11 @@
 <?php
 class Contact extends Controller
 {
-    function index(){
+    function index()
+    {
         // Page Title
         $data['title'] = "Home";
 
-        $this->view("zay_shop/contact",$data);
+        $this->view("zay_shop/contact", $data);
     }
 }

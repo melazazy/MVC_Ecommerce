@@ -59,4 +59,5 @@ document.addEventListener('DOMContentLoaded', function () {
     // checkoutBtn.addEventListener('click', () => {
     //     alert('Redirecting to checkout page...'); // Replace with actual checkout logic
     // });
+    
 });
