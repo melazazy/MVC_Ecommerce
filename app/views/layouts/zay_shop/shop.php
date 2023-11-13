@@ -93,20 +93,8 @@
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                 <ul class="list-unstyled">
                                     <li><a class="btn btn-success text-white" href="shopsingle?id=' . $product->product_id . '"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white" href="<?= ROOT ?>CartController/addToCart?user_id=14&product_id=<?= $product->product_id ?>"><i class="far fa-heart"></i></a></li>
+                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
                                     <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li>
-                                    <a class=" add-to-cart-btn btn btn-success text-white mt-2" href="CartController/addToCart?user_id=' . $_SESSION['user_id'] . '&product_id=' . $product->product_id . '"><i class="fas fa-cart-plus"></i></a>
-                                    </li>
-                                    <li>
-                                        <form id="addToCartForm" action="" method="POST">
-                                            <input type="hidden" name="user_id" value="' . $_SESSION['user_id'] . '">
-                                            <input type="hidden" name="product_id" value="' . $product->product_id . '">
-                                            <button type="submit" class="add-to-cart-btn btn btn-success text-white mt-2">
-                                                <i class="fas fa-cart-plus"></i>
-                                            </button>
-                                        </form>
-                                    </li>
 
                                     
                                 </ul>

@@ -51,7 +51,7 @@ $(document).ready(function () {
     $(this).addClass('btn-secondary');
     return false;
   });
-  // rating.js
+  // rating System Start
 
   const ratingContainer = $('#ratingContainer');
   const progressBar = ratingContainer.find('.rating-bg');
@@ -86,7 +86,7 @@ $(document).ready(function () {
       contentType: 'application/json',
       success: function (response) {
         // Handle the response from the server if needed
-        console.log("response");
+        console.log("response: ");
         console.log(response);
         // Update the UI or perform any other actions
       },
@@ -96,33 +96,5 @@ $(document).ready(function () {
       }
     });
   });
-  $('.add-to-cart-btn').on('click', function () {
-    const user_id = $(this).data('user-id');
-    const product_id = $(this).data('product-id');
-    const cartvalue = document.getElementById('cartcount');
-    const cartcount = document.getElementById('cartcount').value;
-
-    // Use jQuery AJAX to send data to the server
-    $.ajax({
-      type: 'GET',
-      url: 'CartController/addToCart',
-      data: { user_id: user_id, product_id: product_id },
-      success: function (response) {
-        // Handle the response from the server if needed
-        cartvalue.innerHTML = cartcount++;
-        console.log('response: ');
-        console.log('URL: ');
-        console.log(url);
-        console.log(cartvalue);
-        console.log(response);
-        // Update the UI or perform any other actions
-      },
-      error: function () {
-        // Handle errors if any
-        console.error('Error adding to cart');
-      }
-    });
-  });
-
 });
 // End roduct detai

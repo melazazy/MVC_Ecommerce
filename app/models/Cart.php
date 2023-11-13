@@ -14,11 +14,6 @@ class Cart
         $this->DB = new Database;
     }
 
-    public function addToCart($user_id, $product_id)
-    {
-        // Your logic to add the product to the cart
-        echo 'Added to Cart: user_id=' . $user_id . ', product_id=' . $product_id;
-    }
     public function getId()
     {
         return $this->id;
