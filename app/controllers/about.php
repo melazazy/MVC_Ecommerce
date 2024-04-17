@@ -5,6 +5,9 @@ class About extends Controller
     {
 
         $data['title'] = "About";
+        $banner = $this->loadmodel('Brand');
+        $brands = $banner->getAllBrands();
+        $data['brands'] = $brands;
 
         $this->view("zay_shop/about", $data);
     }

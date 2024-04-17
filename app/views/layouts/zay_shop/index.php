@@ -66,7 +66,7 @@
             foreach ($data['cats'] as  $key => $cat) {
                 echo '
         <div class="col-12 col-md-4 p-5 mt-3">
-            <a href="#"><img src="' . ROOT, $cat->image . '" class="rounded-circle img-fluid border"></a>
+            <a href="' . ROOT . 'shop?cat=' . $cat->category_id  . '"><img src="' . ROOT, $cat->image . '" class="rounded-circle img-fluid border"></a>
             <h5 class="text-center mt-3 mb-3">' . $cat->name . '</h5>
             <p class="text-center"><a href="' . ROOT . 'shop?cat=' . $cat->category_id  . '" class="btn btn-success">Go Shop</a></p>
         </div>';
@@ -94,34 +94,28 @@
         <div class="row">
             <?php
             // Loop through the cart items and display them
-            if (count($data['products']) > 0) {
-                // echo (gettype($data['cart'][0]));
-                foreach ($data['products'] as  $key => $product) {
-                    echo '
-            <div class="col-12 col-md-4 mb-4">
-                <div class="card h-100">
-                    <a href="shop-single.html">
-                        <img src="' . ROOT, $product->image_url . '" class="card-img-top" alt="...">
+            if (isset($data['products'])) {
+                if (count($data['products']) > 0) {
+                    // echo (gettype($data['cart'][0]));
+                    foreach ($data['products'] as  $key => $product) {
+                        echo '
+                    <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                    <a href="' . ROOT, "shopSingle?id=", $product->product_id . '">
+                    <img src="' . ROOT, $product->image_url . '" class="card-img-top" alt="...">
                     </a>
-                    <div class="card-body">
-                        <ul class="list-unstyled d-flex justify-content-between">
-                            <li>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                                <i class="text-muted fa fa-star"></i>
-                            </li>
-                            <li class="text-muted text-right">$240.00</li>
-                        </ul>
-                        <a href="shop-single.html" class="h2 text-decoration-none text-dark">' . $product->name . '</a>
+                    <div class="card-body">';
+                        printRate($product->average_rating, 'between', $product->price);
+                        echo '
+                        <a href="' . ROOT, "shopSingle?id=", $product->product_id . '" class="h2 text-decoration-none text-dark">' . $product->name . '</a>
                         <p class="card-text">
                         ' . $product->description . '
                         </p>
-                        <p class="text-muted">Reviews (24)</p>
+                        <p class="text-muted">Reviews (' . $product->review_count . ')</p>
                     </div>
                 </div>
             </div>';
+                    }
                 }
             }
             ?>

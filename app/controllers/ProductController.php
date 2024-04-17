@@ -67,4 +67,11 @@ class ProductController extends Controller
 
         // Pass wishlist data to the view
     }
+    public function editProduct($id)
+    {
+        // Retrieve wishlist items for the logged-in user from the database
+
+        // Pass wishlist data to the view
+        show($id);
+    }
 }

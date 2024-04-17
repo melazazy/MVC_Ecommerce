@@ -7,6 +7,15 @@ function show($arr)
     print_r($arr);
     echo "</pre>";
 }
+// Function to sanitize and validate input
+function sanitizeInput($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
 function isArrayOfEmptyElements($array)
 {
     foreach ($array as $element) {
@@ -45,9 +54,9 @@ function check_message()
 }
 
 // Initialize an empty cart array if it doesn't exist in the session
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
+// if (!isset($_SESSION['cart'])) {
+//     $_SESSION['cart'] = [];
+// }
 // Check if the cart is empty
 function cartItems()
 {
@@ -91,22 +100,103 @@ function removeFromCart($productId)
         }
     }
 }
-
-// Calculate the total price of items in the cart
-function calculateTotal()
-{
-    $total = 0;
-    if (is_array($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $cartItem) {
-            // $total += $cartItem['price'] * $cartItem['quantity'];
-            $total += $cartItem->price * $cartItem->quantity;
-        }
-    }
-    return $total;
-}
-
-// Check if the cart is empty
 function isCartEmpty()
 {
-    return empty($_SESSION['cart']);
+    return empty(getCartQuantity($_SESSION['user_id']));
+}
+function getCartQuantity($user_id)
+{
+    $DB = new Database;
+    // Get the count of cart item for a specific user 
+    $query = "SELECT COUNT(*) AS cartcount FROM cart WHERE user_id = :user_id";
+    $data = [
+        ':user_id' => $user_id,
+    ];
+
+    $result = $DB->read($query, $data);
+
+    return ($result[0]->cartcount > 0) ? $result[0]->cartcount : null;
+}
+function getListQuantity($user_id)
+{
+    $DB = new Database;
+    // Get the count of wishlist item for a specific user 
+    $query = "SELECT COUNT(*) AS wishlistcount FROM wishlist WHERE user_id = :user_id";
+    $data = [
+        ':user_id' => $user_id,
+    ];
+
+    $result = $DB->read($query, $data);
+
+    return ($result[0]->wishlistcount > 0) ? $result[0]->wishlistcount : 0;
+}
+function getList($user_id)
+{
+    $DB = new Database;
+    // Get the wishlist item for a specific user and product
+    $query = "SELECT w.*,p.image_url, p.name FROM wishlist AS w join products AS p ON w.product_id = p.product_id WHERE user_id = :user_id";
+    $data = [
+        ':user_id' => $user_id,
+    ];
+
+    $result = $DB->read($query, $data);
+
+    return ($result) ? $result : null;
+}
+function isInCart($user_id, $product_id)
+{
+    $DB = new Database;
+    // Get the cart item for a specific user and product
+    $query = "SELECT product_id FROM Cart Where user_id = :user_id and product_id = :product_id  ";
+    $data = [
+        ':user_id' => $user_id,
+        ':product_id' => $product_id,
+    ];
+
+    $result = $DB->read($query, $data);
+
+    return $result;
+}
+function isInList($user_id, $product_id)
+{
+    $DB = new Database;
+    // Get the wishlist item for a specific user and product
+    $query = "SELECT product_id FROM Wishlist Where user_id = :user_id and product_id = :product_id  ";
+    $data = [
+        ':user_id' => $user_id,
+        ':product_id' => $product_id,
+    ];
+
+    $result = $DB->read($query, $data);
+    return $result;
+
+    // return ($result[0]->product_id == $product_id) ? true : false;
+}
+function printRate($average_rating, $justify, $price = 'no')
+{
+    echo '<ul class="list-unstyled d-flex justify-content-' . $justify . ' mb-1">
+    <span>
+    <svg style="display:none;">
+        <defs>
+            <symbol id="fivestars">
+                <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24" fill="white" fill-rule="evenodd" />
+                <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24" fill="white" fill-rule="evenodd" transform="translate(24)" />
+                <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24" fill="white" fill-rule="evenodd" transform="translate(48)" />
+                <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24" fill="white" fill-rule="evenodd" transform="translate(72)" />
+                <path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z M0 0 h24 v24 h-24 v-24" fill="white" fill-rule="evenodd" transform="translate(96)" />
+            </symbol>
+        </defs>
+    </svg>
+    <div class="rating">
+        <!-- Progress bar with dynamic width based on the average rating -->
+        <progress class="rating-bg" value="' . $average_rating . '" max="5"></progress>
+        <svg>
+            <use xlink:href="#fivestars" />
+        </svg>
+    </div>
+</span>';
+    if ($price != 'no') {
+        echo    '<li class="text-muted text-right">$' . $price . '</li></ul>';
+    }
+    echo '</ul>';
 }

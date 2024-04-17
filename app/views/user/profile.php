@@ -7,6 +7,10 @@
     var initialAverageRating = 2;
 </script>
 <?php
+// echo 'dsdsdd';
+// isset($data['orders']) ? 'Yes' : 'no';
+// die;
+// show($data['orders'][0]->status);
 $orderStatus = $data['orders'][0]->status;  // Replace this with the actual order status
 
 $averageRating = 3.5;

@@ -40,9 +40,10 @@
                                             <th> Image </th>
                                             <th> Stock </th>
                                             <th> featured </th>
-                                            <th> Manage </th>
+                                            <th> Managements </th>
                                         </tr>
                                     </thead>
+                                    <!-- <td><button type="submit"><i class=\'menu-icon fa fa-edit\'></i></button></td> -->
                                     <tbody>
                                         <?php
                                         if (is_array($data['products'])) {
@@ -55,7 +56,19 @@
                                                     <td><img src="' . ROOT, $product->image_url . '" width="40" alt="" srcset=""></td>
                                                     <td>' . $product->stock . '</td>
                                                     <td>' . $product->featured . '</td>
-                                                    <td><button type="submit"><i class=\'menu-icon fa fa-edit\'></i></button></td>
+
+                                                
+                                                    <td class="align-middle text-center"> 
+                                                        <ul class="list-inline m-0">
+                                                            <li class="list-inline-item">
+                                                                <button class="btn btn-success btn-sm rounded-0 edit-product" data-toggle="modal" data-target="#editModal" onclick="' . ROOT . 'AdminController/editProduct(' . $product->product_id . ')" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                                                                <button class="btn btn-success btn-sm rounded-0 edit-product" data-toggle="modal" data-target="#editModal" onclick="openEditModal(' . $product->product_id . ')" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>
+                                                            </li>
+                                                            <li class="list-inline-item">
+                                                                <button class="btn btn-danger btn-sm rounded-0 delete-product" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
                                                 </tr>';
                                             }
                                         }
@@ -124,6 +137,56 @@
             </div><!-- .animated -->
         </div><!-- .content -->
         <div class="clearfix"></div>
+
+
+        <!-- Edit Modal -->
+        <div class="modal" id="editModal@@@@@@@" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Product</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="editModalBody">
+                        <!-- Product details form will be displayed here -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" onclick="saveEditedProduct()">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- openEdit Modal -->
+        <div class="modal" id="editModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Product</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <!-- Form for editing product details -->
+                        <form id="editProductForm" method="post" action="">
+                            <!-- Edit product fields go here -->
+                            <label for="editProductName">Product Name:</label>
+                            <input type="hidden" name="action" value="edit">
+                            <input type="text" id="editProductName" name="editProductName" required>
+                            <!-- Add other fields as needed -->
+
+                            <button type="button" class="btn btn-primary" onclick="saveChanges()">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Footer -->
         <?= $this->view("zay_shop/d_footer", $data); ?>
         <!-- /.site-footer -->
@@ -152,7 +215,47 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#bootstrap-data-table-export').DataTable();
+            // Function to open the Edit modal and fetch product details
+
+            // // Edit Button Click Event
+            // $('.edit-product').click(function() {
+            //     // Handle edit functionality here
+            //     // alert('Edit button clicked');
+            //     openEditModal(productId);
+            //     // You can replace the alert with the actual edit logic
+            // });
+
+            // Delete Button Click Event
+            $('.delete-product').click(function() {
+                // Handle delete functionality here
+                alert('Delete button clicked');
+                // You can replace the alert with the actual delete logic
+            });
         });
+
+        function openEditModal(productId) {
+            // Use Ajax to call a PHP function that retrieves product details based on productId
+            $.ajax({
+                type: 'POST',
+                url: ROOT + 'AdminController/editProductDetails(' + productId + ')', // Update the URL to your PHP file
+                data: {
+                    productId: productId
+                },
+                success: function(response) {
+                    // Parse the JSON response and populate the Edit modal with the details
+                    console.log(response);
+                    let productDetails = JSON.parse(response);
+                    $('#editProductName').val(productDetails.name);
+                    // Add code to populate other fields as needed
+
+                    // Show the Edit modal
+                    $('#editModal').modal('show');
+                },
+                error: function() {
+                    alert('Error fetching product details.');
+                }
+            });
+        }
     </script>
 </body>
 

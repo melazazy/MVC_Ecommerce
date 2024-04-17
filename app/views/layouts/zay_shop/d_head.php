@@ -65,4 +65,7 @@
             height: 160px;
         }
     </style>
+    <script>
+        const ROOT = "<?php echo ROOT; ?>";
+    </script>
 </head>

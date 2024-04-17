@@ -1,8 +1,63 @@
+    <script async>
+        function subscribe() {
+            // Get the email input value
+            let email = document.getElementById('subscribeEmail').value;
+            let URL = ROOT + 'subscribe';
+            //Initialize Toastr:
+            toastr.options = {
+                "closeButton": true,
+                "positionClass": "toast-top-right",
+                "timeOut": 500,
+            }
+
+            // Validate the email (you can add more sophisticated validation)
+            if (!email || !isValidEmail(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            if (isValidEmail(email)) {
+                // Perform AJAX request
+                $.ajax({
+                    type: 'POST',
+                    url: URL,
+                    data: {
+                        email: email
+                    },
+                    success: function(response) {
+                        // Handle the response from the server
+                        console.log(response);
+                        toastr.success('Subscription successful!', 'Success');
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        console.error('Error:', textStatus, errorThrown);
+                    }
+                });
+            } else {
+                // Handle invalid email
+                alert('Please enter a valid email address.');
+            }
+            // });
+
+        }
+
+        function isValidEmail(email) {
+            // Add your email validation logic here
+            // This is a simple example, you can use regex or other methods for validation
+            return /\S+@\S+\.\S+/.test(email);
+        }
+    </script>
+    <script src="<?= ASSETS ?>zay_shop/js/custom.js"></script>
+
+    <link rel="stylesheet" href="<?= ASSETS ?>zay_shop/css/toastr.min.css">
+    <?php
+    $tags = $this->loadmodel('Tag');
+    $footer['tags'] = $tags->getAllTags();
+    ?>
     <!-- Start Footer -->
     <footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">
             <div class="row">
-
+                <!-- Start Address -->
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-success border-bottom pb-3 border-light logo">Zay Shop</h2>
                     <ul class="list-unstyled text-light footer-link-list">
@@ -20,33 +75,33 @@
                         </li>
                     </ul>
                 </div>
-
+                <!-- End Address -->
+                <!-- Start Tags -->
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
+                        <?php foreach ($footer['tags'] as  $tag) {
+                            echo '<li><a class="text-decoration-none" href="' . ROOT, 'shop?tag=' . $tag->tag_name . '">' . $tag->tag_name . '</a></li>';
+                        }
+                        ?>
                     </ul>
                 </div>
-
+                <!-- End Tags -->
+                <!-- Start Links -->
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Home</a></li>
-                        <li><a class="text-decoration-none" href="#">About Us</a></li>
-                        <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
-                        <li><a class="text-decoration-none" href="#">FAQs</a></li>
-                        <li><a class="text-decoration-none" href="#">Contact</a></li>
+                        <li><a class="text-decoration-none" href="<?= ROOT ?>index">Home</a></li>
+                        <li><a class="text-decoration-none" href="<?= ROOT ?>about">About Us</a></li>
+                        <li><a class="text-decoration-none" href="<?= ROOT ?>location">Shop Locations</a></li>
+                        <li><a class="text-decoration-none" href="<?= ROOT ?>faq">FAQs</a></li>
+                        <li><a class="text-decoration-none" href="<?= ROOT ?>contact">Contact</a></li>
                     </ul>
                 </div>
-
+                <!-- End Links -->
             </div>
-
+            <!--  Social and Subscribe -->
+            <!-- Start Social -->
             <div class="row text-light mb-4">
                 <div class="col-12 mb-3">
                     <div class="w-100 my-3 border-top border-light"></div>
@@ -67,13 +122,17 @@
                         </li>
                     </ul>
                 </div>
+                <!-- end Social -->
+                <!-- Start Subscribe -->
                 <div class="col-auto">
                     <label class="sr-only" for="subscribeEmail">Email address</label>
                     <div class="input-group mb-2">
-                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
-                        <div class="input-group-text btn-success text-light">Subscribe</div>
+                        <input type="email" name="email" class="form-control bg-dark border-light text-white" id="subscribeEmail" placeholder="Email address">
+                        <button type="button" class="btn btn-success text-light" onclick="subscribe()">Subscribe</button>
                     </div>
                 </div>
+                <!-- end Subscribe -->
+
             </div>
         </div>
 
@@ -82,7 +141,7 @@
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                            Copyright &copy; 2021 Company Name 
+                            Copyright &copy; 2021 Company Name
                             | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
                         </p>
                     </div>
@@ -94,12 +153,14 @@
     <!-- End Footer -->
 
     <!-- Start Script -->
-    <script src="<?=ASSETS?>zay_shop/js/jquery-1.11.0.min.js"></script>
-    <script src="<?=ASSETS?>zay_shop/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="<?=ASSETS?>zay_shop/js/bootstrap.bundle.min.js"></script>
-    <script src="<?=ASSETS?>zay_shop/js/templatemo.js"></script>
-    <script src="<?=ASSETS?>zay_shop/js/custom.js"></script>
+    <script src="<?= ASSETS ?>zay_shop/js/jquery-1.11.0.min.js"></script>
+    <script src="<?= ASSETS ?>zay_shop/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="<?= ASSETS ?>zay_shop/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= ASSETS ?>zay_shop/js/templatemo.js"></script>
+    <script src="<?= ASSETS ?>zay_shop/js/custom.js"></script>
+    <script src="<?= ASSETS ?>zay_shop/js/toastr.min.js"></script>
     <!-- End Script -->
-</body>
 
-</html>
+    </body>
+
+    </html>

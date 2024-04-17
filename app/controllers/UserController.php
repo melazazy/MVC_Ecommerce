@@ -22,34 +22,40 @@ class UserController extends Controller
     }
     public function profile()
     {
-        if ($_SESSION['role'] == 'user') {
-            $DB = new Database;
-            $id = $_SESSION['user_id'];
-            $d['id'] = $id;
-            // $query = 'SELECT * FROM `Orders` WHERE user_id = :id';
-            $qorders = 'SELECT o.order_id,o.status,o.order_date,COUNT(oi.product_id) AS product_count,pm.name AS PayType,p.transaction_id
-            FROM orders AS o JOIN order_items AS oi ON o.order_id = oi.order_id 
-            LEFT JOIN Payments AS p ON o.order_id = p.order_id 
-            LEFT JOIN PaymentMethods AS pm ON p.method_id = pm.method_id
-            WHERE o.user_id = :id GROUP BY o.order_id, o.order_date, p.payment_id;';
-            // $qorders = 'SELECT o.order_id,o.status,o.order_date,COUNT(oi.product_id) AS product_count FROM orders AS o JOIN order_items AS oi ON o.order_id = oi.order_id WHERE o.user_id = :id GROUP BY o.order_id, o.order_date;';
-            $quser = 'SELECT * FROM `users` WHERE user_id = :id';
-            $qcount = 'SELECT COUNT(*) as order_count FROM orders WHERE user_id = :id;';
-            $orders = $DB->read($qorders, $d);
-            $orderscount = $this->total('order_count', 'orders');
-            $cartcount = $this->total('cart_count', 'cart');
-            $wishcount = $this->total('wish_count', 'wishlist');
-            $user = $DB->read($quser, $d);
+        if (isset($_SESSION['role'])) {
+            if ($_SESSION['role'] == 'user') {
+                $DB = new Database;
+                $id = $_SESSION['user_id'];
+                $par['id'] = $id;
+                // $query = 'SELECT * FROM `Orders` WHERE user_id = :id';
+                $qorders = 'SELECT o.order_id,o.status,o.order_date,COUNT(oi.product_id) AS product_count,pm.name AS PayType,p.transaction_id
+             FROM orders AS o JOIN order_items AS oi ON o.order_id = oi.order_id 
+             LEFT JOIN Payments AS p ON o.order_id = p.order_id 
+             LEFT JOIN PaymentMethods AS pm ON p.method_id = pm.method_id
+             WHERE o.user_id = :id GROUP BY o.order_id, o.order_date, p.payment_id;';
+                // $qorders = 'SELECT o.order_id,o.status,o.order_date,COUNT(oi.product_id) AS product_count FROM orders AS o JOIN order_items AS oi ON o.order_id = oi.order_id WHERE o.user_id = :id GROUP BY o.order_id, o.order_date;';
+                $quser = 'SELECT * FROM `users` WHERE user_id = :id';
+                $qcount = 'SELECT COUNT(*) as order_count FROM orders WHERE user_id = :id;';
+                $orders = $DB->read($qorders, $par);
 
-            $data['title'] = 'Profile';
-            $data['orders'] = $orders;
-            $data['user'] = $user;
-            $data['orderscount'] = $orderscount[0]->order_count;
-            $data['cartcount'] = $cartcount[0]->cart_count;
-            $data['wishcount'] = $wishcount[0]->wish_count;
-            $this->view("../user/profile", $data);
+                $orderscount = $this->total('order_count', 'orders');
+                $cartcount = $this->total('cart_count', 'cart');
+                $wishcount = $this->total('wish_count', 'wishlist');
+                $user = $DB->read($quser, $par);
+
+                $data['title'] = 'Profile';
+                $data['orders'] = $orders;
+                $data['user'] = $user;
+                $data['orderscount'] = $orderscount[0]->order_count;
+                $data['cartcount'] = $cartcount[0]->cart_count;
+                $data['wishcount'] = $wishcount[0]->wish_count;
+                $this->view("../user/profile", $data);
+            } else {
+
+                header("Location:" . ROOT . "AdminController/dashboard");
+            }
         } else {
-            show($_SESSION['role'][0]->role);
+            header("Location:" . ROOT . "index");
         }
     }
 

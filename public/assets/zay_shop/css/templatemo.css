@@ -304,3 +304,7 @@ div {
 .search-result {
   min-height: 50vh;
 }
+#templatemo_list {
+  pointer-events: all;
+}
+

@@ -20,6 +20,19 @@
                         ?>
                     </ul>
                 </li>
+                <li class="pb-3">
+                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                        Tag's
+                        <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                    </a>
+                    <ul id="collapseThree" class="collapse list-unstyled pl-3">
+                        <?php
+                        foreach ($data['tags'] as $tag) {
+                            echo '<li><a class="text-decoration-none" href="' . ROOT, "shop?tag=", $tag->tag_name  . '">' . $tag->tag_name . '</a></li>';
+                        }
+                        ?>
+                    </ul>
+                </li>
             </ul>
         </div>
 
@@ -62,16 +75,6 @@
                         ?>
                     </ul>
                 </div>
-                <div class="col-md-6 pb-4">
-                    <div class="d-flex">
-                        <select class="form-control">
-                            <option>Featured</option>
-                            <option>A to Z</option>
-                            <option>Item</option>
-                        </select>
-                    </div>
-                </div>
-
             </div>
             <div class="row">
                 <?php
@@ -91,12 +94,20 @@
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="' . ($retVal = ($product->image_url != '') ? ROOT . $product->image_url : ROOT . "uploads/products/blaceholder.jpeg") . '">                    
                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shopsingle?id=' . $product->product_id . '"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-
-                                    
+                                <ul class="list-unstyled">';
+                        if (isset($_SESSION['user_id']) && $_SESSION['user_id'] != 'guest') {
+                            echo '
+                                    <li><a class="add-to-cart-btn btn btn-success text-white" data-user-id="' . $_SESSION['user_id'] . '" data-product-id="' . $product->product_id . '"><i class="fa fa-cart-arrow-down"></i></a></li>
+                                    <li><a class="add-to-list-btn btn btn-success text-white mt-2"  data-user-id="' . $_SESSION['user_id'] . '" data-product-id="' . $product->product_id . '"><i class="far fa-heart"></i></a></li>
+                                    ';
+                        } else {
+                            echo '
+                                    <li><a class="add-to-cart-btn btn btn-success text-white" data-user-id="guest" data-product-id="' . $product->product_id . '"><i class="fa fa-cart-arrow-down"></i></a></li>
+                                    <li><a class="add-to-list-btn btn btn-success text-white mt-2"  data-user-id="guest" data-product-id="' . $product->product_id . '"><i class="far fa-heart"></i></a></li>
+                                    ';
+                        }
+                        echo '
+                                <li><a class="btn btn-success text-white mt-2" href="shopsingle?id=' . $product->product_id . '"><i class="far fa-eye"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -125,17 +136,14 @@
                         } else {
                             echo 'No Colors Available';
                         }
-                        echo '</li></ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <p class="text-center mb-0">$' . $product->price . '</p>
+                        echo '</li></ul>';
+
+                        if ($product->average_rating > 0) {
+                            printRate($product->average_rating, 'center');
+                        } else {
+                            echo '<br>';
+                        }
+                        echo '<p class="text-center mb-0">$' . $product->price . '</p>
                         </div>
                     </div>
                 </div>';
