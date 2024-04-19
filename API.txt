@@ -1,3 +1,0 @@
-curl "https://app.zipcodebase.com/api/v1/status?apikey=YOUR-APIKEY"
-curl "https://app.zipcodebase.com/api/v1/status?apikey=01HFZ0DS38FAA8GPABBWTZR1P3"
-Your API key: 01HFZ0DS38FAA8GPABBWTZR1P3

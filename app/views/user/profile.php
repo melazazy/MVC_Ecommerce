@@ -205,7 +205,7 @@ if (array_key_exists($orderStatus, $statusIcons)) {
                                     </ul>
                                     <div id="tracker"></div>
                                     <h3>Set rating</h3>
-                                    <div id="">Average Rating:</div>
+                                    <!-- <div id="">Average Rating:</div> -->
                                     <!-- Add this code where you want to display the rating stars -->
                                     <span id="stars">
                                         <svg style="display:none;">
