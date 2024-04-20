@@ -7,12 +7,6 @@ class Controller
     {
         if (file_exists("../app/views/layouts/" . $view . ".php")) {
             include "../app/views/layouts/" . $view . ".php";
-            // } else if (file_exists("../app/views/admin/" . $view . ".php")) {
-            //     include "../app/views/admin/" . $view . ".php";
-            // } else if (file_exists("../app/views/auth/" . $view . ".php")) {
-            //     include "../app/views/auth/" . $view . ".php";
-            // } else if (file_exists("../app/views/user/" . $view . ".php")) {
-            //     include "../app/views/user/" . $view . ".php";
         } else {
             include "../app/views/layouts/404.php";
         }

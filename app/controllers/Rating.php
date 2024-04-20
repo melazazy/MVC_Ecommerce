@@ -1,9 +1,6 @@
 <?php
 class Rating extends Controller
 {
-    // Assuming you have a function to update the rating in your database
-    // Replace this with your actual logic
-    // public function updateRating()
     public function updateRating($user_id, $product_id, $newRating)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -17,10 +14,6 @@ class Rating extends Controller
                 $user_id = $requestData['user_id'];
                 $product_id = $requestData['product_id'];
 
-                // Now you have $newRating, $user_id, and $product_id to use in your logic
-                // Perform your logic to update the rating in the database or any other actions
-
-                // For this example, let's return a new average rating
                 $averageRating = $this->calculateAverageRating();
 
                 // Send the response as JSON
@@ -36,6 +29,7 @@ class Rating extends Controller
     }
 
     // Function to calculate the average rating (replace with your actual logic)
+    // Test Function
     public function calculateAverageRating()
     {
         // Your logic to calculate the average rating

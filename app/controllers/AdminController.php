@@ -12,13 +12,7 @@ class AdminController extends Controller
 
         // Handle admin dashboard logic here
         $data['title'] = 'Dashboard';
-        // echo ($role[0]->role);
-        // show($role);
-        // die;
-        // $data['role'] = $role[0]->role;
         $data['role'] = $role;
-        // show($data['role']);
-        // die;
         if ($logeduser and  $data['role'] == 'admin') {
             $this->view("../admin/dashboard", $data);
         } else if ($logeduser && $role[0]->role == 'user') {
@@ -92,9 +86,7 @@ class AdminController extends Controller
                     // Now, you can store product data and image URL in the database
                     try {
                         $Category->addCategory($name, $description, $targetFile);
-                        // echo "Category Added successfully!";
                         header("Location: ../adminController/manageCategories");
-                        // $this->view("../admin/categories", $data);
                     } catch (PDOException $e) {
                         echo "Error: " . $e->getMessage();
                     }
@@ -131,9 +123,7 @@ class AdminController extends Controller
                 $title = $_POST["title"];
                 try {
                     $banner->addBanner($id, $header, $title);
-                    // echo "Category Added successfully!";
                     header("Location: ../adminController/manageBanners");
-                    // $this->view("../admin/categories", $data);
                 } catch (PDOException $e) {
                     echo "Error: " . $e->getMessage();
                 }
@@ -165,14 +155,6 @@ class AdminController extends Controller
                 $id = $_POST["productID"];
                 $header = $_POST["header"];
                 $title = $_POST["title"];
-                // try {
-                //     $banner->addBanner($id, $header, $title);
-                //     // echo "Category Added successfully!";
-                //     header("Location: ../adminController/manageBanners");
-                //     // $this->view("../admin/categories", $data);
-                // } catch (PDOException $e) {
-                //     echo "Error: " . $e->getMessage();
-                // }
             } else {
                 echo "Please fill in all required fields.";
             }
@@ -206,8 +188,6 @@ class AdminController extends Controller
             $targetFile = $uploadDirectory . $_FILES['product_image']['name'];
 
             if (move_uploaded_file($uploadedFile, $targetFile)) {
-                // Image uploaded successfully
-                // Now, you can store product data and image URL in the database
                 try {
                     $product->addProduct($cat, $productName, $description, $price, $targetFile, $featured, $stock);
                     // Add success message or redirection if needed
@@ -233,12 +213,6 @@ class AdminController extends Controller
     }
     public function editProduct($productModel)
     {
-        // show("uytuytyt uytuy u ty");
-        // die;
-        // $this->view("../user/profile", $productModel);
-        // return 'EEEEDDDDIIITTT';
-        // Handle edit product logic here and return data 
-
         if (
             isset($_POST["edit_product_id"]) &&
             isset($_POST["edit_product_name"]) &&
@@ -262,8 +236,6 @@ class AdminController extends Controller
             $editTargetFile = $uploadDirectory . $_FILES['edit_product_image']['name'];
 
             if (move_uploaded_file($editUploadedFile, $editTargetFile)) {
-                // Image uploaded successfully
-                // Now, you can update product data and image URL in the database
                 try {
                     $productModel->editProduct($editProductId, $editCat, $editProductName, $editDescription, $editPrice, $editTargetFile, $editFeatured, $editStock);
                     // Edit success message or redirection if needed

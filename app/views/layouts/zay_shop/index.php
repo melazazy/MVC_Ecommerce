@@ -6,7 +6,6 @@
         <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
         <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
     </ol>
-    <!-- <a href="#" class="link" target="_blank" rel="noopener noreferrer"></a> -->
     <div class="carousel-inner">
         <?php
         // Loop through the cart items and display them

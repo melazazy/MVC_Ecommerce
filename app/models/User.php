@@ -37,9 +37,6 @@ class User
                 $items['user_id'] = $data[0]->user_id;
                 $cart = $DB->read($cartquery, $items);
                 $count = $DB->read($countquery, $items);
-
-                // show($cart);
-                // die();
                 if (is_array($data)) {
                     // Logged in
                     $_SESSION['user_id'] = $data[0]->user_id;

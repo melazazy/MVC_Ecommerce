@@ -215,15 +215,6 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#bootstrap-data-table-export').DataTable();
-            // Function to open the Edit modal and fetch product details
-
-            // // Edit Button Click Event
-            // $('.edit-product').click(function() {
-            //     // Handle edit functionality here
-            //     // alert('Edit button clicked');
-            //     openEditModal(productId);
-            //     // You can replace the alert with the actual edit logic
-            // });
 
             // Delete Button Click Event
             $('.delete-product').click(function() {

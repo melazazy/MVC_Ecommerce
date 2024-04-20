@@ -52,7 +52,6 @@
                         // Check if the parameter exists in the URL
                         if (strpos($currentURL, $paramToCheck . "=") !== false) {
                             // The parameter exists; add "&gender="
-                            // $newURL = $currentURL . "&gender=Male"; // Replace "value" with the desired value
                             $menURL = ROOT . "shop?cat=" . $queryParameters['cat'] . "&gender=Male"; // Replace "value" with the desired value
                             echo '<li class="list-inline-item">';
                             echo '<a class="h3 text-dark text-decoration-none mr-3" href="' . $menURL . '">Men\'s</a>';
@@ -62,7 +61,6 @@
                             echo '<a class="h3 text-dark text-decoration-none mr-3" href="' . $womenURL . '">Women\'s</a>';
                             echo '</li>';
                         } else {
-                            // The parameter does not exist; add "gender="
                             $menURL = ROOT . "shop?gender=Male"; // Replace "value" with the desired value
                             echo '<li class="list-inline-item">';
                             echo '<a class="h3 text-dark text-decoration-none mr-3" href="' . $menURL . '">Men\'s</a>';
@@ -82,8 +80,6 @@
 
                     foreach ($data['products'] as $key => $product) {
                         $colors = [];
-                        // unset($colors);
-                        // show(($product->color_names));
                         if (!isArrayOfEmptyElements($product->color_names)) {
                             foreach ($product->color_names as $color) {
                                 $colors[] = $color;
@@ -126,8 +122,7 @@
                             </ul>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                             <li>';
-                        // if (count($colors) > 0) {
-                        // if (!isArrayOfEmptyElements($product->color_names)) {
+
                         if (!isArrayOfEmptyElements($colors)) {
                             echo 'Colors:';
                             foreach ($product->color_names as $color) {

@@ -169,7 +169,6 @@ class Cart
     public function getUserAdresses($user_id)
     {
         // Calculate the total price of items in the cart for a specific user
-        // $query = "SELECT address_id, recipient_name, address_line1, city, state, postal_code, country FROM shipping_addresses
         $query = "SELECT * FROM shipping_addresses
         WHERE user_id = :user_id;";
         $data = [
@@ -177,25 +176,9 @@ class Cart
         ];
 
         return  $this->DB->read($query, $data);
-        // if (count($addresses) > 0) {
-        //     echo "<select>";
-        //     echo "<option value=''>Select a shipping address</option>";
-        //     foreach ($addresses as $address) {
-        //         echo '<option value="' . $address->address_id . '">' . $address->country . ',' . $address->city . '</option>';
-        //     }
-        //     echo "</select>";
-        //     exit;
-        // } else {
-        //     echo 'Enter new Adress';
-        //     exit;
-        // }
-
-        // return (count($result) > 0) ? $result : 'No Adress';
     }
     public function printUserAdresses($user_id)
     {
-        // Calculate the total price of items in the cart for a specific user
-        // $query = "SELECT address_id, recipient_name, address_line1, city, state, postal_code, country FROM shipping_addresses
         $query = "SELECT * FROM shipping_addresses WHERE user_id = :user_id;";
         $data['user_id'] = $user_id;
 
@@ -214,7 +197,5 @@ class Cart
             echo 'Enter new Adress';
             exit;
         }
-
-        // return (count($result) > 0) ? $result : 'No Adress';
     }
 }

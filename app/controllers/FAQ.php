@@ -5,9 +5,6 @@ class FAQ extends Controller
     {
 
         $data['title'] = "FAQ";
-        // $banner = $this->loadmodel('Brand');
-        // $brands = $banner->getAllBrands();
-        // $data['brands'] = $brands;
 
         $this->view("zay_shop/faq", $data);
     }

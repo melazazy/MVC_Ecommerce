@@ -1,16 +1,8 @@
 <link rel="stylesheet" href="<?= ASSETS ?>zay_shop/profile/style.css">
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"> -->
 <script>
     var initialAverageRating = 2;
 </script>
 <?php
-// echo 'dsdsdd';
-// isset($data['orders']) ? 'Yes' : 'no';
-// die;
-// show($data['orders'][0]->status);
 $orderStatus = $data['orders'][0]->status;  // Replace this with the actual order status
 
 $averageRating = 3.5;
@@ -205,7 +197,6 @@ if (array_key_exists($orderStatus, $statusIcons)) {
                                     </ul>
                                     <div id="tracker"></div>
                                     <h3>Set rating</h3>
-                                    <!-- <div id="">Average Rating:</div> -->
                                     <!-- Add this code where you want to display the rating stars -->
                                     <span id="stars">
                                         <svg style="display:none;">
@@ -261,7 +252,6 @@ if (array_key_exists($orderStatus, $statusIcons)) {
             progressBar.value = <?= $averageRating ?>;
         });
     </script> -->
-
 
 </div>
 

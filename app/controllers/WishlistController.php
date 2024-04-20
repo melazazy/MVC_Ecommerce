@@ -47,8 +47,6 @@ class WishlistController extends Controller
 
             $list = $this->loadModel('Wishlist');
             $items = $list->getList($user_id);
-            // show($items);
-            // die;
             // Convert PHP array to JSON string
             $jsonString = json_encode($items);
 

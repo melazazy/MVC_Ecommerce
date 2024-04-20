@@ -52,12 +52,6 @@ function check_message()
         unset($_SESSION['error']);
     }
 }
-
-// Initialize an empty cart array if it doesn't exist in the session
-// if (!isset($_SESSION['cart'])) {
-//     $_SESSION['cart'] = [];
-// }
-// Check if the cart is empty
 function cartItems()
 {
     $items = 0;

@@ -4,10 +4,6 @@
 class ProductController extends Controller
 {
     private $db;
-    public function viewProduct($productId)
-    {
-        // Handle viewing a product logic here
-    }
     public function searchProducts($searchQuery)
     {
         // Sanitize and construct the SQL query
@@ -24,6 +20,7 @@ class ProductController extends Controller
         }
         return $products;
     }
+    // TODO
     public function addToWishlist($id)
     {
         // Check if the user is logged in and has a session

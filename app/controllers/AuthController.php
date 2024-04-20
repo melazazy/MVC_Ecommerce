@@ -3,24 +3,16 @@
 
 class AuthController extends Controller
 {
-    public function index()
-    {
-    }
     public function login()
     {
-        // Handle user login logic here
+        // Handle user login logic 
         $user = $this->loadmodel('User');
         $user->login($_POST);
         if (isset($_SESSION['user_url']) && isset($_SESSION['role'])) {
-            // if ($_SESSION['user_url']) {
             if ($_SESSION['role'] == 'admin') {
-                // $data['title'] = "Dashboard";
-                // $this->view("../admin/dashboard", $data);
                 header("Location:" . ROOT . "AdminController/dashboard");
                 die;
             } else if ($_SESSION['role'] == 'user') {
-                // $data['title'] = "profile";
-                // $this->view("../user/profile", $data);
                 header("Location:" . ROOT . "UserController/profile");
                 die;
             } else {
@@ -37,7 +29,6 @@ class AuthController extends Controller
     {
         $user = $this->loadmodel('User');
         $user->register($_POST);
-        // Handle user registration logic here
         $data['title'] = "Register";
         $this->view("../auth/register", $data);
     }
@@ -49,6 +40,5 @@ class AuthController extends Controller
 
         header("Location:" . ROOT . "index");
         die;
-        // Handle user logout logic here
     }
 }

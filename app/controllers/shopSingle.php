@@ -21,12 +21,8 @@ class shopSingle extends Controller
             $data['product'] = $product->getProductDetails($productId);
             $data['related'] = $product->getAllProductsRelated($productId);
             $data['title'] = $data['product'][0]->name;
-            // echo "Data:";
-            // show($data['related']);
-            // die;
         }
-        // show(isInList(15, 3));
-        // die;
+
         $this->view("zay_shop/shopSingle", $data);
     }
 }

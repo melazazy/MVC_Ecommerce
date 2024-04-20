@@ -6,11 +6,6 @@ define('WEBSITE_TITLE', "Zay Shop");
 
 /*set database variables*/
 
-// define('DB_TYPE', 'mysql');
-// define('DB_NAME', 'if0_36388605_mvc');
-// define('DB_USER', 'if0_36388605');
-// define('DB_PASS', 'lord20050');
-// define('DB_HOST', 'sql111.infinityfree.com');
 define('DB_TYPE', 'mysql');
 define('DB_NAME', 'mvc_ecommerce');
 define('DB_USER', 'root');

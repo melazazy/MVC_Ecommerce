@@ -13,8 +13,6 @@ class Shop extends Controller
         $product = $this->loadmodel('Product');
         $category = $this->loadmodel('category');
         $banner = $this->loadmodel('Brand');
-        // $tags = $this->loadmodel('Tag');
-        // $tag_names = $tags->getAllTags();
         $brands = $banner->getAllBrands();
         $products = $product->getAllProductsDetails();
         $categories = $category->getAllCategories();

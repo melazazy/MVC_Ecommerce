@@ -84,19 +84,7 @@ class Product
             ";
 
         $products =  $this->DB->read($query, $this->product_id);
-        // if ($products) {
-        //     foreach ($products as &$product) {
-        //         // Split and format sizes
-        //         // $product->size_chars = implode(' / ', explode(',', $product->size_chars));
-
-        //         // Split and format colors
-        //         // $product->color_names = implode(',', explode(',', $product->color_names));
-        //         $product->color_names = explode(',', $product->color_names);
-        //     }
-        // }
-        // return $this->DB->read($q);
         return $products;
-        // return "products";
     }
     public function getAllProductsRelated($id)
     {
@@ -144,8 +132,6 @@ class Product
         LEFT JOIN sizes AS s ON pd.size_id = s.size_id
         LEFT JOIN colors AS c ON pd.color_id = c.color_id
         LEFT JOIN brands AS b ON pd.brand_id = b.brand_id";
-        // GROUP BY p.product_id;
-        // $params['cat_id'] = $cat_id;
 
         if (!is_null($cat)) {
             $query .= " WHERE p.category_id=:cat_id";
@@ -160,20 +146,12 @@ class Product
         }
 
         $query .= " GROUP BY p.product_id";
-        // show($query);
-        // die();
         $products =  $this->DB->read($query, $params);
         if ($products) {
             foreach ($products as &$product) {
-                // Split and format sizes
-                // $product->size_chars = implode(' / ', explode(',', $product->size_chars));
-
-                // Split and format colors
-                // $product->color_names = implode(',', explode(',', $product->color_names));
                 $product->color_names = explode(',', $product->color_names);
             }
         }
-        // return $this->DB->read($q);
         return $products;
     }
     public function getAllProductsWithTag($tag = '')
@@ -189,36 +167,19 @@ class Product
         LEFT JOIN colors AS c ON pd.color_id = c.color_id
         LEFT JOIN ProductTags AS pt ON p.product_id = pt.product_id
         LEFT JOIN brands AS b ON pd.brand_id = b.brand_id";
-        // GROUP BY p.product_id;
-        // $params['cat_id'] = $cat_id;
 
         if (!is_null($tag_name)) {
             $query .= " WHERE pt.tag_name=:tag_name";
             $params['tag_name'] = $tag_name;
         }
-        // if (!is_null($gender) && !is_null($cat)) {
-        //     $query .= " AND pd.gender = :gender";
-        //     $params['gender'] = $gender;
-        // } elseif (!is_null($gender) && is_null($cat)) {
-        //     $query .= " WHERE pd.gender = :gender";
-        //     $params['gender'] = $gender;
-        // }
 
         $query .= " GROUP BY p.product_id";
-        // show($query);
-        // die();
         $products =  $this->DB->read($query, $params);
         if ($products) {
             foreach ($products as &$product) {
-                // Split and format sizes
-                // $product->size_chars = implode(' / ', explode(',', $product->size_chars));
-
-                // Split and format colors
-                // $product->color_names = implode(',', explode(',', $product->color_names));
                 $product->color_names = explode(',', $product->color_names);
             }
         }
-        // return $this->DB->read($q);
         return $products;
     }
     public function get3FeaturedProducts()
