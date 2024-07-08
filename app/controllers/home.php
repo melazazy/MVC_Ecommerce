@@ -5,7 +5,7 @@ class Home extends Controller
     {
         // Page Title
         $data['title'] = "Home";
-        $banner = $this->loadmodel('Banner');
+        $banner = $this->loadmodel('banner');
         $cat = $this->loadmodel('category');
         $products = $this->loadmodel('Product');
         $data['banner'] = $banner->get3Banners();
