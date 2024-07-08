@@ -18,8 +18,8 @@ class Banner
     }
     public function get3Banners()
     {
-        $query = "SELECT banner_products.*, products.* FROM banner_products
-        INNER JOIN products ON banner_products.product_id = products.product_id limit 3;";
+        $query = "SELECT banner_products.*, Products.* FROM banner_products
+        INNER JOIN Products ON banner_products.product_id = Products.product_id limit 3;";
         return $this->DB->read($query);
     }
     // Method to add a new category to the database
