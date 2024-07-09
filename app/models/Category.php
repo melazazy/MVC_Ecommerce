@@ -12,13 +12,13 @@ class Category
     // Method to retrieve a list of all categories from the database
     public function getAllCategories()
     {
-        $query = "SELECT * FROM Categories";
+        $query = "SELECT * FROM categories";
                                 
         return $this->DB->read($query);
     }
     public function get3Categories()
     {
-        $query = "SELECT * FROM Categories LIMIT 3";
+        $query = "SELECT * FROM categories LIMIT 3";
         return $this->DB->read($query);
         // return "OK";
     }
@@ -28,7 +28,7 @@ class Category
         $items['name'] = $name;
         $items['description'] = $description;
         $items['targetFile'] = $targetFile;
-        $addq = "INSERT INTO Categories (name, description, image) VALUES (:name,:description,:targetFile)";
+        $addq = "INSERT INTO categories (name, description, image) VALUES (:name,:description,:targetFile)";
         return $this->DB->write($addq, $items);
     }
 
