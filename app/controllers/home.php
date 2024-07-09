@@ -11,7 +11,7 @@ class Home extends Controller
         $data['banner'] = $banner->get3Banners();
         // $data['cats'] = $cat->get3Categories();
         echo 'pre';
-        print_r $cat->get3Categories();
+        print_r ($cat->get3Categories());
         echo '/pre';
         // echo $data['cats'];
         die;
