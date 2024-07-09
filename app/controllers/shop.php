@@ -11,7 +11,7 @@ class Shop extends Controller
         $tags = "SELECT DISTINCT tag_name FROM ProductTags ORDER BY tag_name ASC";
         $tag_names = $DB->read($tags);
         $product = $this->loadmodel('Product');
-        $category = $this->loadmodel('category');
+        $category = $this->loadmodel('Category');
         $banner = $this->loadmodel('Brand');
         $brands = $banner->getAllBrands();
         $products = $product->getAllProductsDetails();
