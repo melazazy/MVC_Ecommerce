@@ -6,13 +6,13 @@ class Home extends Controller
         // Page Title
         $data['title'] = "Home";
         $banner = $this->loadmodel('banner');
-        $cat = $this->loadmodel('category');
+        $cat = $this->loadmodel('Category');
         $products = $this->loadmodel('Product');
         $data['banner'] = $banner->get3Banners();
-        // $data['cats'] = $cat->get3Categories();
-        return $cat->get3Categories();
+        $data['cats'] = $cat->get3Categories();
+        // return $cat->get3Categories();
         // echo $data['cats'];
-        die;
+        // die;
         $data['products'] = $products->get3FeaturedProducts();
         $this->view("zay_shop/index", $data);
     }
