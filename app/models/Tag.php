@@ -13,7 +13,7 @@ class Tag
     public function getAllTags()
     {
         // $query = "SELECT * FROM ProductTags";
-        $query = "SELECT DISTINCT tag_name FROM ProductTags ORDER BY tag_name ASC";
+        $query = "SELECT DISTINCT tag_name FROM productTags ORDER BY tag_name ASC";
         return $this->DB->read($query);
     }
 }
