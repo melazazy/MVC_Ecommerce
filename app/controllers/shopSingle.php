@@ -9,11 +9,11 @@ class shopSingle extends Controller
         $data['product'] = '';
         $data['related'] = '';
         $product = $this->loadmodel('Product');
-        if (!isset($_GET['id']) || empty($_GET['id'])) {
-            // Redirect to the index page
-            header('Location: ' . ROOT . 'index');
-            exit;
-        }
+        // if (!isset($_GET['id']) || empty($_GET['id'])) {
+        //     // Redirect to the index page
+        //     header('Location: ' . ROOT . 'index');
+        //     exit;
+        // }
         if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT) !== false) {
             $productId = ($product->checkIdExists($_GET['id'])) ? $_GET['id'] : '';
         }
