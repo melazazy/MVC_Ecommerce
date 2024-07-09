@@ -17,7 +17,7 @@ class Category
     }
     public function get3Categories()
     {
-        $query = "SELECT * FROM categories LIMIT 3";
+        $query = "SELECT * FROM Categories LIMIT 3";
         return $this->DB->read($query);
     }
     // Method to add a new category to the database
