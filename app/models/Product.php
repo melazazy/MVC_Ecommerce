@@ -19,18 +19,18 @@ class Product
         GROUP_CONCAT(pi_all.image_url) AS all_images,
         AVG(pr.rating) AS average_rating,(
         SELECT GROUP_CONCAT(review)
-        FROM ProductRatings AS pr_comment
+        FROM productRatings AS pr_comment
         WHERE pr_comment.product_id = p.product_id
         ORDER BY pr.created_at DESC) AS comments,(SELECT COUNT(*)
-        FROM ProductRatings AS pr_count
+        FROM productRatings AS pr_count
         WHERE pr_count.product_id = p.product_id) AS review_count FROM products AS p
         LEFT JOIN product_details AS pd ON p.product_id = pd.product_id
         LEFT JOIN sizes AS s ON pd.size_id = s.size_id
         LEFT JOIN colors AS c ON pd.color_id = c.color_id
         LEFT JOIN brands AS b ON pd.brand_id = b.brand_id
-        LEFT JOIN ProductImages AS pi ON p.product_id = pi.product_id AND pi.is_primary = true
-        LEFT JOIN ProductImages AS pi_all ON p.product_id = pi_all.product_id
-        LEFT JOIN ProductRatings AS pr ON p.product_id = pr.product_id
+        LEFT JOIN productImages AS pi ON p.product_id = pi.product_id AND pi.is_primary = true
+        LEFT JOIN productImages AS pi_all ON p.product_id = pi_all.product_id
+        LEFT JOIN productRatings AS pr ON p.product_id = pr.product_id
         WHERE p.product_id =:id
         GROUP BY p.product_id, p.name, p.image_url, product_description, s.size_char, c.color_name, p.price, b.name, pi.image_url";
         return $this->DB->read($q, $this->product_id);
@@ -53,7 +53,7 @@ class Product
         LEFT JOIN sizes AS s ON pd.size_id = s.size_id
         LEFT JOIN colors AS c ON pd.color_id = c.color_id
         LEFT JOIN brands AS b ON pd.brand_id = b.brand_id
-        LEFT JOIN ProductRatings AS pr ON p.product_id = pr.product_id
+        LEFT JOIN productRatings AS pr ON p.product_id = pr.product_id
         GROUP BY p.product_id;";
         $products =  $this->DB->read($query);
         if ($products) {
@@ -184,7 +184,7 @@ class Product
     }
     public function get3FeaturedProducts()
     {
-        $q = "SELECT p.*, AVG(pr.rating) AS average_rating,COUNT(pr.rating) AS review_count FROM Products AS p LEFT JOIN ProductRatings AS pr ON p.product_id = pr.product_id where featured =1 GROUP BY p.product_id  LIMIT 3";
+        $q = "SELECT p.*, AVG(pr.rating) AS average_rating,COUNT(pr.rating) AS review_count FROM products AS p LEFT JOIN productRatings AS pr ON p.product_id = pr.product_id where featured =1 GROUP BY p.product_id  LIMIT 3";
         return $this->DB->read($q);
     }
 
