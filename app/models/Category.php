@@ -12,7 +12,8 @@ class Category
     // Method to retrieve a list of all categories from the database
     public function getAllCategories()
     {
-        $query = "SELECT * FROM categories";
+        $query = "SELECT * FROM Categories";
+                                
         return $this->DB->read($query);
     }
     public function get3Categories()
