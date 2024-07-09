@@ -127,7 +127,7 @@ class Product
         IFNULL(GROUP_CONCAT(DISTINCT s.size_char ORDER BY s.size_char ASC),'') AS size_chars,
         IFNULL(GROUP_CONCAT(DISTINCT c.color_name ORDER BY c.color_name ASC),'') AS color_names,
         p.price,b.name AS Brand_name
-        FROM products AS p
+        FROM Products AS p
         LEFT JOIN product_details AS pd ON p.product_id = pd.product_id
         LEFT JOIN sizes AS s ON pd.size_id = s.size_id
         LEFT JOIN colors AS c ON pd.color_id = c.color_id
