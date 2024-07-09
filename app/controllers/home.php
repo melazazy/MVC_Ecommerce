@@ -10,8 +10,9 @@ class Home extends Controller
         $products = $this->loadmodel('Product');
         $data['banner'] = $banner->get3Banners();
         // $data['cats'] = $cat->get3Categories();
+        return $cat->get3Categories();
         // echo $data['cats'];
-        // die;
+        die;
         $data['products'] = $products->get3FeaturedProducts();
         $this->view("zay_shop/index", $data);
     }
