@@ -7,7 +7,7 @@ define('WEBSITE_TITLE', "Zay Shop");
 /*set database variables*/
 
 define('DB_TYPE', 'mysql');
-define('DB_NAME', 'mvc_ecommerce');
+define('DB_NAME', 'mvc_ecommerce_2');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_HOST', 'localhost');
