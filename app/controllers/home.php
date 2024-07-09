@@ -10,7 +10,9 @@ class Home extends Controller
         $products = $this->loadmodel('Product');
         $data['banner'] = $banner->get3Banners();
         // $data['cats'] = $cat->get3Categories();
-        echo $cat->get3Categories();
+        echo 'pre';
+        print_r $cat->get3Categories();
+        echo '/pre';
         // echo $data['cats'];
         die;
         $data['products'] = $products->get3FeaturedProducts();
