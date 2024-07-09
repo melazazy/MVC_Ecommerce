@@ -38,7 +38,7 @@ class Product
 
     public function getAllProducts()
     {
-        $q = "SELECT * FROM Products";
+        $q = "SELECT * FROM products";
         return $this->DB->read($q);
     }
     public function getAllProductsDetails()
