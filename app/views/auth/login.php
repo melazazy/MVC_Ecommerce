@@ -63,6 +63,11 @@
 
 <?= $this->view("zay_shop/header", $data); ?>
 <div class="login-page">
+    <p>
+<?php echo 'Login page';
+die;
+?>
+</p>
     <p><?php check_message() ?></p>
     <div class="form">
         <form class="login-form" method="POST">
