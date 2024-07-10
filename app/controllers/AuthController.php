@@ -6,6 +6,9 @@ class AuthController extends Controller
     public function login()
     {
         // Handle user login logic 
+        echo 'Login page:/';
+        die;
+
         $user = $this->loadmodel('User');
         $user->login($_POST);
         if (isset($_SESSION['user_url']) && isset($_SESSION['role'])) {
