@@ -65,8 +65,6 @@
 <div class="login-page">
     <p><?php check_message() ?></p>
     <div class="form">
-        <!-- <form action="<?= ROOT ?>AdminController/dashboard" class="login-form" method="POST"> -->
-        <!-- <form action="AuthController/login" class="login-form" method="POST"> -->
         <form class="login-form" method="POST">
             <input type="text" name="username" placeholder="username" required />
             <input type="password" name="password" placeholder="password" required />
